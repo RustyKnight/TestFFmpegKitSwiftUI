@@ -12,6 +12,11 @@ struct ContentView: View {
     
     @State private var statusText: String?
     
+    @State private var missingInput = false
+    @State private var missingOutput = false
+    
+    @State private var outputSource: URL?
+    
     var body: some View {
         VStack {
             Button {
@@ -25,8 +30,30 @@ struct ContentView: View {
                 Text("Async")
             }
             
+            if let outputSource = outputSource {
+                Button {
+                    NSWorkspace.shared.activateFileViewerSelecting([outputSource])
+                } label: {
+                    Text("Show in finder")
+                }
+            }
+            
             if let statusText = statusText {
                 Text(statusText)
+            }
+        }
+        .alert("Missing input", isPresented: $missingInput) {
+            Button {
+                //
+            } label: {
+                Text("Ok")
+            }
+        }
+        .alert("Missing output", isPresented: $missingOutput) {
+            Button {
+                //
+            } label: {
+                Text("Ok")
             }
         }
         .frame(width: 200, height: 200)
@@ -39,15 +66,27 @@ struct ContentView: View {
 
     // This will block the main thread and is a bad idea
     private func syncCommand() {
+        outputSource = nil
+        guard let inputResource = Bundle.main.url(forResource: "Source", withExtension: "m4v") else {
+            missingInput = true
+            return
+        }
+        guard let outputPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            missingOutput = true
+            return
+        }
+        let outputResource = outputPath.appendingPathComponent("Converted.mp4")
+        
         // This will never appear
         statusText = "In progress..."
-        guard let session = FFmpegKit.execute("-i \"\(inputFile)\" -y \"\(outputFile)\"") else {
+        guard let session = FFmpegKit.execute("-i \"\(inputResource.path)\" -y \"\(outputResource.path)\"") else {
             print("!! Failed to create session")
             return
         }
         let returnCode = session.getReturnCode()
         if ReturnCode.isSuccess(returnCode) {
             statusText = "Success"
+            outputSource = outputResource
         } else if ReturnCode.isCancel(returnCode) {
             statusText = "Cancelled"
         } else {
@@ -57,8 +96,18 @@ struct ContentView: View {
     }
 
     private func asyncCommand() {
+        outputSource = nil
+        guard let inputResource = Bundle.main.url(forResource: "Source", withExtension: "m4v") else {
+            missingInput = true
+            return
+        }
+        guard let outputPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            missingOutput = true
+            return
+        }
+        let outputResource = outputPath.appendingPathComponent("Converted.mp4")
         statusText = "In progress..."
-        FFmpegKit.executeAsync("-i \"\(inputFile)\" -y \"\(outputFile)\"") { session in
+        FFmpegKit.executeAsync("-i \"\(inputResource.path)\" -y \"\(outputResource.path)\"") { session in
             guard let session = session else {
                 print("!! Invalid session")
                 statusText = "Invalid session"
@@ -70,7 +119,8 @@ struct ContentView: View {
                 return
             }
             if ReturnCode.isSuccess(returnCode) {
-                statusText = "Success"
+                statusText = "Success \(outputResource.path)"
+                outputSource = outputResource
             } else if ReturnCode.isCancel(returnCode) {
                 statusText = "Cancelled"
             } else {

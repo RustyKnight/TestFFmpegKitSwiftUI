@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE82CBC928602721009CB5B0 /* Source.m4v in Resources */ = {isa = PBXBuildFile; fileRef = CE82CBC828602721009CB5B0 /* Source.m4v */; };
 		CED5EA09285E8E690014FB95 /* TestFFmpegKitSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED5EA08285E8E690014FB95 /* TestFFmpegKitSwiftUIApp.swift */; };
 		CED5EA0B285E8E690014FB95 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED5EA0A285E8E690014FB95 /* ContentView.swift */; };
 		CED5EA0D285E8E6B0014FB95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CED5EA0C285E8E6B0014FB95 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE82CBC828602721009CB5B0 /* Source.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = Source.m4v; sourceTree = "<group>"; };
 		CED5EA05285E8E690014FB95 /* TestFFmpegKitSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestFFmpegKitSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED5EA08285E8E690014FB95 /* TestFFmpegKitSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFFmpegKitSwiftUIApp.swift; sourceTree = "<group>"; };
 		CED5EA0A285E8E690014FB95 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE82CBC728602721009CB5B0 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CE82CBC828602721009CB5B0 /* Source.m4v */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		CED5E9FC285E8E690014FB95 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 		CED5EA07285E8E690014FB95 /* TestFFmpegKitSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				CE82CBC728602721009CB5B0 /* Assets */,
 				CED5EA08285E8E690014FB95 /* TestFFmpegKitSwiftUIApp.swift */,
 				CED5EA0A285E8E690014FB95 /* ContentView.swift */,
 				CED5EA0C285E8E6B0014FB95 /* Assets.xcassets */,
@@ -197,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE82CBC928602721009CB5B0 /* Source.m4v in Resources */,
 				CED5EA10285E8E6B0014FB95 /* Preview Assets.xcassets in Resources */,
 				CED5EA0D285E8E6B0014FB95 /* Assets.xcassets in Resources */,
 			);
